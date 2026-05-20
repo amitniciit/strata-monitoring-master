@@ -1,0 +1,24 @@
+/* View.css */
+.card {
+    background-color: #e0f7fa; /* Light blue background */
+    border: 1px solid #00796b; /* Darker blue border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px;
+    margin: 16px 0; /* Margin between cards */
+    max-width: 600px; /* Set a max width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: Arial, sans-serif; /* Font style */
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #004d40; /* Dark blue text */
+    margin-bottom: 8px;
+}
+
+.card-body p {
+    margin: 4px 0; /* Space between lines */
+    font-size: 16px;
+    color: #00796b; /* Medium blue text */
+}

@@ -1,0 +1,20 @@
+  {
+    "panelNumber": 4,
+    "date": "2025-11-28T06:00:00Z",
+    "panelStatus": "active",
+    "notes": "Panel development complete. All pillars intact. Instruments installed.",
+    "pillars": [
+      { "pillarNumber": 1,  "status": "active", "coordinates": [{"x":10,"y":10},{"x":20,"y":10},{"x":20,"y":18},{"x":10,"y":18}] },
+      { "pillarNumber": 2,  "status": "active", "coordinates": [{"x":26,"y":10},{"x":36,"y":10},{"x":36,"y":18},{"x":26,"y":18}] },
+      { "pillarNumber": 3,  "status": "active", "coordinates": [{"x":42,"y":10},{"x":52,"y":10},{"x":52,"y":18},{"x":42,"y":18}] },
+      { "pillarNumber": 4,  "status": "active", "coordinates": [{"x":58,"y":10},{"x":68,"y":10},{"x":68,"y":18},{"x":58,"y":18}] },
+      { "pillarNumber": 5,  "status": "active", "coordinates": [{"x":10,"y":24},{"x":20,"y":24},{"x":20,"y":32},{"x":10,"y":32}] },
+      { "pillarNumber": 6,  "status": "active", "coordinates": [{"x":26,"y":24},{"x":36,"y":24},{"x":36,"y":32},{"x":26,"y":32}] },
+      { "pillarNumber": 7,  "status": "active", "coordinates": [{"x":42,"y":24},{"x":52,"y":24},{"x":52,"y":32},{"x":42,"y":32}] },
+      { "pillarNumber": 8,  "status": "active", "coordinates": [{"x":58,"y":24},{"x":68,"y":24},{"x":68,"y":32},{"x":58,"y":32}] },
+      { "pillarNumber": 9,  "status": "active", "coordinates": [{"x":10,"y":38},{"x":20,"y":38},{"x":20,"y":46},{"x":10,"y":46}] },
+      { "pillarNumber": 10, "status": "active", "coordinates": [{"x":26,"y":38},{"x":36,"y":38},{"x":36,"y":46},{"x":26,"y":46}] },
+      { "pillarNumber": 11, "status": "active", "coordinates": [{"x":42,"y":38},{"x":52,"y":38},{"x":52,"y":46},{"x":42,"y":46}] },
+      { "pillarNumber": 12, "status": "active", "coordinates": [{"x":58,"y":38},{"x":68,"y":38},{"x":68,"y":46},{"x":58,"y":46}] }
+    ]
+  }
