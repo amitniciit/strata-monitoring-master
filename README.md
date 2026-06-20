@@ -1,69 +1,131 @@
-## 🖼️ Panel Visualization
+# 🏗️ System Architecture
 
-### **2D Panel Visualization**
-![2D Panel Visualization](./assets/Panel%20Visualization%20Interface%20Showing%20Pillar%20Layout(2D).png)
+The following diagram illustrates the complete workflow of the Interactive Strata Monitoring and Data Management System.
 
----
-
-### **3D Panel Visualization**
-![3D Panel Visualization](./assets/Panel%20Visualization%20Interface%20Showing%20Pillar%20Layout(3D).png)
+<p align="center">
+  <img src="./assets/system-architecture.png" width="900">
+</p>
 
 ---
 
-## 📱 App Features & Screenshots
+# 🖼️ Application Screenshots
 
-### 1️⃣ Register Instrument
-Register a new underground monitoring instrument by specifying its type, panel number, location, coordinates, and description.
+## 1️⃣ Home Dashboard
 
-![Register Instrument](./assets/Instrument%20Data%20Entry%20Interface.png)
+The landing page provides quick access to instruments, panels, monitoring data, and visualization modules.
 
----
-
-### 2️⃣ Log Instrument Reading
-Record time-stamped monitoring readings for any registered instrument.
-
-![Log Instrument Reading](./assets/Add%20Instrument%20Interface.png)
+<p align="center">
+<img src="./assets/Home%20Page%20Interface.png" width="900">
+</p>
 
 ---
 
-### 3️⃣ Instrument Management
-Browse, search, and manage all registered monitoring instruments.
+## 2️⃣ Panel Repository
 
-![Instrument Management](./assets/Home%20Page%20Interface.png)
+Displays all underground panels along with their status and available snapshots.
 
----
-
-### 4️⃣ Historical Trend Graph
-Visualize historical instrument readings with safe, warning, and critical threshold indicators.
-
-![Historical Trend Graph](./assets/Historical%20Trend%20Graph%20of%20Instrument%20Readings.png)
+<p align="center">
+<img src="./assets/Panel%20List%20Interface.png" width="900">
+</p>
 
 ---
 
-### 5️⃣ Threshold Alert Visualization (2D)
-Visualize real-time alert status directly on the 2D underground panel layout.
+## 3️⃣ Upload Panel Snapshot
 
-![Threshold Alert 2D](./assets/Warning%20and%20Alert%20Interface%20for%20Threshold%20Exceedance(2D).png)
+Administrators can upload JSON files describing underground panel geometry, extraction status, and instrument locations.
 
----
-
-### 6️⃣ Threshold Alert Visualization (3D)
-Inspect underground panel conditions in an interactive 3D environment with alert visualization.
-
-![Threshold Alert 3D](./assets/Warning%20and%20Alert%20Interface%20for%20Threshold%20Exceedance(3D).png)
+<p align="center">
+<img src="./assets/Panel%20Upload%20Interface.jpeg" width="900">
+</p>
 
 ---
 
-### 7️⃣ Upload Panel Snapshot
-Upload JSON-based underground panel snapshots containing pillar geometry and extraction status.
+## 4️⃣ Register New Instrument
 
-![Upload Panel Snapshot](./assets/Panel%20Upload%20Interface.jpeg)
+Register underground monitoring instruments by specifying their type, panel number, location, coordinates, limits, and description.
+
+<p align="center">
+<img src="./assets/Add%20Instrument%20Interface.png" width="900">
+</p>
+
+---
+
+## 5️⃣ Record Instrument Reading
+
+Store time-stamped monitoring values for every registered instrument.
+
+<p align="center">
+<img src="./assets/Instrument%20Data%20Entry%20Interface.png" width="900">
+</p>
 
 ---
 
-### 8️⃣ Panel Repository
-Browse all registered underground panels and their historical snapshots.
+## 6️⃣ Historical Trend Analysis
 
-![Panel Repository](./assets/Panel%20List%20Interface.png)
+Visualize instrument readings over time with threshold indicators for monitoring strata behaviour.
+
+<p align="center">
+<img src="./assets/Historical%20Trend%20Graph%20of%20Instrument%20Readings.png" width="900">
+</p>
 
 ---
+
+# 🏗️ Panel Visualization
+
+## 7️⃣ Interactive 2D Panel Visualization
+
+Interactive visualization of underground pillars, extraction progress, and instrument locations.
+
+<p align="center">
+<img src="./assets/Panel%20Visualization%20Interface%20Showing%20Pillar%20Layout(2D).png" width="900">
+</p>
+
+---
+
+## 8️⃣ Interactive 3D Panel Visualization
+
+A three-dimensional representation of the underground panel providing enhanced spatial understanding.
+
+<p align="center">
+<img src="./assets/Panel%20Visualization%20Interface%20Showing%20Pillar%20Layout(3D).png" width="900">
+</p>
+
+---
+
+## 9️⃣ Threshold Alert Visualization (2D)
+
+When instrument readings exceed predefined limits, the corresponding instrument is highlighted for quick identification.
+
+<p align="center">
+<img src="./assets/Warning%20and%20Alert%20Interface%20for%20Threshold%20Exceedance(2D).png" width="900">
+</p>
+
+---
+
+## 🔟 Threshold Alert Visualization (3D)
+
+Threshold violations are also visualized within the interactive 3D panel.
+
+<p align="center">
+<img src="./assets/Warning%20and%20Alert%20Interface%20for%20Threshold%20Exceedance(3D).png" width="900">
+</p>
+
+---
+
+## 1️⃣1️⃣ Extraction Progress Visualization (2D)
+
+Track underground extraction progression across multiple snapshots in the 2D interface.
+
+<p align="center">
+<img src="./assets/Extraction%20Progress%20Interface(2D).png" width="900">
+</p>
+
+---
+
+## 1️⃣2️⃣ Extraction Progress Visualization (3D)
+
+Visualize extraction advancement and pillar status evolution in an immersive 3D environment.
+
+<p align="center">
+<img src="./assets/Extraction%20Progress%20Interface(3D).png" width="900">
+</p>
