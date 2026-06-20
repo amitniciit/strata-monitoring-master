@@ -1,131 +1,151 @@
 # 🏗️ System Architecture
 
-The following diagram illustrates the complete workflow of the Interactive Strata Monitoring and Data Management System.
+The Interactive Strata Monitoring and Data Management System follows a modular architecture consisting of the React frontend, Express.js backend, MongoDB database, and visualization engine. Monitoring data flows from underground instruments into the database where it is processed and visualized through interactive 2D and 3D interfaces.
 
 <p align="center">
-  <img src="./assets/system-architecture.png" width="900">
+<img src="./assets/system-architecture.png" width="950"/>
 </p>
 
 ---
 
-# 🖼️ Application Screenshots
+# 📸 Application Walkthrough
 
-## 1️⃣ Home Dashboard
+## 🏠 1. Home Dashboard
 
-The landing page provides quick access to instruments, panels, monitoring data, and visualization modules.
+The dashboard provides centralized access to panel visualization, monitoring instruments, historical readings, and management modules.
 
 <p align="center">
-<img src="./assets/Home%20Page%20Interface.png" width="900">
+<img src="./assets/Home Page Interface.png" width="900"/>
 </p>
 
 ---
 
-## 2️⃣ Panel Repository
+## 📋 2. Panel Repository
 
-Displays all underground panels along with their status and available snapshots.
+Browse every underground panel available in the system together with its associated snapshots.
 
 <p align="center">
-<img src="./assets/Panel%20List%20Interface.png" width="900">
+<img src="./assets/Panel List Interface.png" width="900"/>
 </p>
 
 ---
 
-## 3️⃣ Upload Panel Snapshot
+## 📤 3. Upload Underground Panel
 
-Administrators can upload JSON files describing underground panel geometry, extraction status, and instrument locations.
+Upload JSON files describing pillar coordinates, extraction status, panel geometry, and instrument locations.
 
 <p align="center">
-<img src="./assets/Panel%20Upload%20Interface.jpeg" width="900">
+<img src="./assets/Panel Upload Interface.png" width="900"/>
 </p>
 
 ---
 
-## 4️⃣ Register New Instrument
+## 📡 4. Register Monitoring Instrument
 
-Register underground monitoring instruments by specifying their type, panel number, location, coordinates, limits, and description.
+Register a monitoring instrument by specifying its panel number, coordinates, instrument type, threshold values, and description.
 
 <p align="center">
-<img src="./assets/Add%20Instrument%20Interface.png" width="900">
+<img src="./assets/Add Instrument Interface.png" width="900"/>
 </p>
 
 ---
 
-## 5️⃣ Record Instrument Reading
+## 📝 5. Record Instrument Reading
 
-Store time-stamped monitoring values for every registered instrument.
+Store time-stamped monitoring readings collected from underground instruments.
 
 <p align="center">
-<img src="./assets/Instrument%20Data%20Entry%20Interface.png" width="900">
+<img src="./assets/Instrument Data Entry Interface.png" width="900"/>
 </p>
 
 ---
 
-## 6️⃣ Historical Trend Analysis
+## 📈 6. Historical Trend Analysis
 
-Visualize instrument readings over time with threshold indicators for monitoring strata behaviour.
+Visualize historical sensor readings and compare them against warning and critical threshold values.
 
 <p align="center">
-<img src="./assets/Historical%20Trend%20Graph%20of%20Instrument%20Readings.png" width="900">
+<img src="./assets/Historical Trend Graph of Instrument Readings.png" width="900"/>
 </p>
 
 ---
 
-# 🏗️ Panel Visualization
+# 🏗️ Interactive Underground Panel Visualization
 
-## 7️⃣ Interactive 2D Panel Visualization
+## 🟦 7. Interactive 2D Panel Visualization
 
-Interactive visualization of underground pillars, extraction progress, and instrument locations.
+The 2D interface displays the underground panel layout, pillar geometry, extraction status, and monitoring instrument locations.
 
 <p align="center">
-<img src="./assets/Panel%20Visualization%20Interface%20Showing%20Pillar%20Layout(2D).png" width="900">
+<img src="./assets/Panel Visualization Interface Showing Pillar Layout(2D).png" width="900"/>
 </p>
 
 ---
 
-## 8️⃣ Interactive 3D Panel Visualization
+## 🟫 8. Interactive 3D Panel Visualization
 
-A three-dimensional representation of the underground panel providing enhanced spatial understanding.
+An immersive 3D representation of the underground panel enabling enhanced spatial understanding of mining operations.
 
 <p align="center">
-<img src="./assets/Panel%20Visualization%20Interface%20Showing%20Pillar%20Layout(3D).png" width="900">
+<img src="./assets/Panel Visualization Interface Showing Pillar Layout(3D).png" width="900"/>
 </p>
 
 ---
 
-## 9️⃣ Threshold Alert Visualization (2D)
+# 🚨 Threshold Monitoring
 
-When instrument readings exceed predefined limits, the corresponding instrument is highlighted for quick identification.
+## ⚠️ 9. Threshold Alert Visualization (2D)
+
+Whenever an instrument exceeds its predefined threshold, it is immediately highlighted within the 2D panel for rapid identification.
 
 <p align="center">
-<img src="./assets/Warning%20and%20Alert%20Interface%20for%20Threshold%20Exceedance(2D).png" width="900">
+<img src="./assets/Warning and Alert Interface for Threshold Exceedance(2D).png" width="900"/>
 </p>
 
 ---
 
-## 🔟 Threshold Alert Visualization (3D)
+## 🚨 10. Threshold Alert Visualization (3D)
 
-Threshold violations are also visualized within the interactive 3D panel.
+Threshold violations are also visualized within the interactive 3D environment for improved situational awareness.
 
 <p align="center">
-<img src="./assets/Warning%20and%20Alert%20Interface%20for%20Threshold%20Exceedance(3D).png" width="900">
+<img src="./assets/Warning and Alert Interface for Threshold Exceedance(3D).png" width="900"/>
 </p>
 
 ---
 
-## 1️⃣1️⃣ Extraction Progress Visualization (2D)
+# ⛏️ Mining Progress Visualization
 
-Track underground extraction progression across multiple snapshots in the 2D interface.
+## 🟩 11. Extraction Progress Visualization (2D)
+
+The system supports time-based visualization of underground extraction progress through multiple stored panel snapshots.
 
 <p align="center">
-<img src="./assets/Extraction%20Progress%20Interface(2D).png" width="900">
+<img src="./assets/Extraction Progression Visualization Interface(2D).png" width="900"/>
 </p>
 
 ---
 
-## 1️⃣2️⃣ Extraction Progress Visualization (3D)
+## 🟫 12. Extraction Progress Visualization (3D)
 
-Visualize extraction advancement and pillar status evolution in an immersive 3D environment.
+Extraction progression is simultaneously visualized in a fully interactive 3D environment, providing a realistic representation of underground mining advancement.
 
 <p align="center">
-<img src="./assets/Extraction%20Progress%20Interface(3D).png" width="900">
+<img src="./assets/Extraction Progression Visualization Interface(3D).png" width="900"/>
 </p>
+
+---
+
+# ⭐ Major Features
+
+- Interactive Underground Panel Visualization
+- 2D & 3D Mine Layout Rendering
+- Historical Instrument Trend Analysis
+- Threshold-based Warning & Alert System
+- Underground Instrument Management
+- Panel Snapshot Upload using JSON
+- Extraction Progress Visualization
+- Time-series Monitoring Database
+- React + Express + MongoDB Full Stack Architecture
+- Extensible Design for Future IoT Integration
+- Future-ready for AI/ML-based Roof Fall Prediction
