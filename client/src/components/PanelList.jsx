@@ -5,11 +5,7 @@ import './PanelList.css';
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
 const PanelList = () => {
@@ -42,72 +38,102 @@ const PanelList = () => {
     }));
   };
 
-  if (loading) return <p className="panel-loading">Loading panels...</p>;
+  if (loading) return (
+    <div className="pl-shell">
+      <div className="pl-loading">
+        <div className="pl-spinner" />
+        <p>Loading panels…</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="panel-container">
-      <h2 className="panel-header">Available Panels</h2>
+    <div className="pl-shell">
+      <header className="pl-topbar">
+        <div className="pl-brand">⛏ MineTrack</div>
+        <Link to="/" className="pl-back-btn">← Back to home</Link>
+      </header>
 
-      <div className="home-button-container">
-        <Link to="/" className="home-button">← Back to Home</Link>
-      </div>
+      <div className="pl-content">
+        <div className="pl-page-head">
+          <div>
+            <h1 className="pl-title">All Panels</h1>
+            <p className="pl-subtitle">{panels.length} panel{panels.length !== 1 ? 's' : ''} registered</p>
+          </div>
+        </div>
 
-      {panels.length === 0 ? (
-        <p className="panel-info text-center">No panels available or offline.</p>
-      ) : (
-        <div className="panel-vertical-list">
-          {panels.map((panel, index) => (
-            <div className="panel-card block-style" key={index}>
-              <Link to={`/panelview/${panel.panelNumber}`} className="panel-link">
-                <div className="panel-title">Panel view #{panel.panelNumber}</div>
-              </Link>
+        {panels.length === 0 ? (
+          <div className="pl-empty">
+            <p>No panels available or offline.</p>
+          </div>
+        ) : (
+          <div className="pl-grid">
+            {panels.map((panel, index) => (
+              <div className="pl-card" key={index}>
 
-              <div className="panel-section">
-                <button
-                  className="dropdown-btn"
-                  onClick={() => toggleSection(panel.panelNumber, 'dates')}
-                >
-                  {expanded[panel.panelNumber]?.dates ? 'Hide Dates ▲' : 'Show Dates ▼'}
-                </button>
-                {expanded[panel.panelNumber]?.dates && (
-                  <ul className="dropdown-list">
-                    {panel.dates.map((d, idx) => (
-                      <li key={idx}>{formatDate(d)}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+                <div className="pl-card-header">
+                  <div className="pl-card-title-row">
+                    <span className="pl-panel-number">Panel {panel.panelNumber}</span>
+                    <span className="pl-snapshot-badge">{panel.snapshots} snapshots</span>
+                  </div>
+                  <Link to={`/panelview/${panel.panelNumber}`} className="pl-view-btn">
+                    View panel →
+                  </Link>
+                </div>
 
-              {panel.instruments?.length > 0 && (
-                <div className="panel-section">
+                <div className="pl-divider" />
+
+                <div className="pl-section">
                   <button
-                    className="dropdown-btn"
-                    onClick={() => toggleSection(panel.panelNumber, 'instruments')}
+                    className="pl-toggle-btn"
+                    onClick={() => toggleSection(panel.panelNumber, 'dates')}
                   >
-                    {expanded[panel.panelNumber]?.instruments ? 'Hide Instruments ▲' : 'Show Instruments ▼'}
+                    <span>📅 Dates ({panel.dates.length})</span>
+                    <span className="pl-chevron">{expanded[panel.panelNumber]?.dates ? '▲' : '▼'}</span>
                   </button>
-                  {expanded[panel.panelNumber]?.instruments && (
-                    <ul className="dropdown-list">
-                      {panel.instruments.map((inst) => (
-                        <li key={inst.instrumentId}>
-                          <Link to={`/${inst.instrumentId}/graph`} className="instrument-link">
-                            {inst.instrumentName} ({inst.instrumentId}) @ ({inst.xCoordinate}, {inst.yCoordinate})
-                          </Link>
+                  {expanded[panel.panelNumber]?.dates && (
+                    <ul className="pl-list">
+                      {panel.dates.map((d, idx) => (
+                        <li key={idx} className="pl-list-item">
+                          <span className="pl-dot" />
+                          {formatDate(d)}
                         </li>
                       ))}
                     </ul>
                   )}
                 </div>
-              )}
 
-              <p className="panel-info"><strong>Snapshots:</strong> {panel.snapshots}</p>
-            </div>
-          ))}
-        </div>
-      )}
+                {panel.instruments?.length > 0 && (
+                  <div className="pl-section">
+                    <button
+                      className="pl-toggle-btn"
+                      onClick={() => toggleSection(panel.panelNumber, 'instruments')}
+                    >
+                      <span>🔧 Instruments ({panel.instruments.length})</span>
+                      <span className="pl-chevron">{expanded[panel.panelNumber]?.instruments ? '▲' : '▼'}</span>
+                    </button>
+                    {expanded[panel.panelNumber]?.instruments && (
+                      <ul className="pl-list">
+                        {panel.instruments.map((inst) => (
+                          <li key={inst.instrumentId} className="pl-list-item pl-instrument-item">
+                            <Link to={`/${inst.instrumentId}/graph`} className="pl-instrument-link">
+                              <span className="pl-inst-name">{inst.instrumentName}</span>
+                              <span className="pl-inst-meta">ID {inst.instrumentId} · ({inst.xCoordinate}, {inst.yCoordinate})</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 export default PanelList;
-

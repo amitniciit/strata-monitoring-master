@@ -86,6 +86,10 @@ const pillarSchema = new mongoose.Schema({
       }
     }
   ],
+  height: {
+    type: Number,
+    default: 3
+  },
 
   status: {
     type: String,

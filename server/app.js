@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const multer = require('multer');
-
 require('dotenv').config();
 
 const app = express();
@@ -10,16 +9,22 @@ const app = express();
 const Instrument = require('./model/instrument');
 const Value = require('./model/value');
 const Panel = require('./model/panel');
-
 const getInstrumentConversion = require('./utils/conversion');
 const { processAFile } = require('./utils/processFile');
 
 const upload = multer({ dest: 'uploads/' });
 
-
-// ======================
-// MONGODB CONNECTION
-// ======================
+const instrumentDefaults = {
+  MPBX: { minValue: 0, maxValue: 15, zCoordinate: 8 },
+  DHT: { minValue: 0, maxValue: 5, zCoordinate: 8 },
+  SHT: { minValue: 0, maxValue: 5, zCoordinate: 8 },
+  RTT: { minValue: 0, maxValue: 5, zCoordinate: 8 },
+  AWTT: { minValue: 0, maxValue: 5, zCoordinate: 8 },
+  RFC: { minValue: 0, maxValue: 100, zCoordinate: 8 },
+  LC: { minValue: 0, maxValue: 20, zCoordinate: 1 },
+  SC: { minValue: 0, maxValue: 50, zCoordinate: 2 },
+  CRI: { minValue: 0, maxValue: 50, zCoordinate: 5 },
+};
 
 async function main() {
   await mongoose.connect(process.env.MONGO_URI);
@@ -31,57 +36,39 @@ main()
   })
   .catch((err) => console.log(err));
 
-
-// ======================
-// MIDDLEWARE
-// ======================
-
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 // ======================
 // GET ALL INSTRUMENTS
 // ======================
-
 app.get('/', async (req, res, next) => {
-
   try {
-
     const allInstruments = await Instrument.find({});
-
     res.json(allInstruments);
-
   } catch (e) {
-
     console.log(e);
-
     next(e);
   }
 });
 
-
 // ======================
-// CREATE NEW INSTRUMENT
+// CREATE INSTRUMENT
 // ======================
-
 app.post('/', async (req, res, next) => {
-
   try {
-
     const {
       instrumentName,
       instrumentId,
       panelNumber,
-      maxValue,
-      minValue,
       description,
       xCoordinate,
       yCoordinate,
       installationDate
     } = req.body;
 
+    const defaults = instrumentDefaults[instrumentName];
     const fullFormUnit = getInstrumentConversion(instrumentName);
 
     const newInstrument = new Instrument({
@@ -89,8 +76,9 @@ app.post('/', async (req, res, next) => {
       unit: fullFormUnit.unit,
       instrumentId,
       panelNumber,
-      maxValue,
-      minValue,
+      maxValue: defaults.maxValue,
+      minValue: defaults.minValue,
+      zCoordinate: defaults.zCoordinate,
       description,
       xCoordinate,
       yCoordinate,
@@ -98,28 +86,19 @@ app.post('/', async (req, res, next) => {
     });
 
     console.log(newInstrument);
-
     await newInstrument.save();
-
     res.json({ newInstrument });
-
   } catch (err) {
-
     console.log(err);
-
     next(err);
   }
 });
 
-
 // ======================
-// GET SINGLE INSTRUMENT DATA
+// GET SINGLE INSTRUMENT + TIME-SERIES VALUES
 // ======================
-
 app.get('/:instrumentId', async (req, res, next) => {
-
   try {
-
     const { instrumentId } = req.params;
 
     const reqInstrument = await Instrument.find({
@@ -140,7 +119,8 @@ app.get('/:instrumentId', async (req, res, next) => {
       timestamp: d.timestamp,
       value: d.value,
       maxValue: reqInstrument[0].maxValue,
-      minValue: reqInstrument[0].minValue
+      minValue: reqInstrument[0].minValue,
+      unit: reqInstrument[0].unit
     }));
 
     const sortedData = formattedValues.sort(
@@ -149,24 +129,17 @@ app.get('/:instrumentId', async (req, res, next) => {
     );
 
     res.json(sortedData);
-
   } catch (e) {
-
     console.log(e);
-
     next(e);
   }
 });
 
-
 // ======================
-// ADD INSTRUMENT VALUE
+// ADD NEW READING FOR INSTRUMENT
 // ======================
-
 app.post('/:instrumentId', async (req, res, next) => {
-
   try {
-
     const { instrumentId } = req.params;
 
     const reqInstrument = await Instrument.find({
@@ -193,92 +166,60 @@ app.post('/:instrumentId', async (req, res, next) => {
     });
 
     await newValue.save();
-
     res.json(newValue);
-
   } catch (e) {
-
     next(e);
   }
 });
 
-
 // ======================
-// GET ALL INSTRUMENTS IN PANEL
+// GET ALL INSTRUMENTS FOR A PANEL
 // ======================
-
 app.get('/instruments/:panelNumber', async (req, res, next) => {
-
   try {
-
     const allInstrument = await Instrument.find({
       panelNumber: req.params.panelNumber
     });
-
     res.json(allInstrument);
-
   } catch (err) {
-
     console.log(err);
-
     next(err);
   }
 });
 
-
 // ======================
-// UPLOAD PANEL SNAPSHOT
+// UPLOAD PANEL FILE
 // ======================
-
 app.post(
   '/upload/panel',
   upload.single('file'),
   async (req, res, next) => {
-
     console.log('Received request to upload panel data');
-
     console.log(req.body);
-
     try {
-
       console.log('Received file:', req.file);
-
       const panelData = await processAFile(req.file.path);
-
       console.log('Processed panel data:', panelData);
-
       const newPanel = new Panel(panelData);
-
       await newPanel.save();
-
       console.log('Panel saved successfully');
-
       res.json({
         message: 'file uploaded successfully'
       });
-
     } catch (err) {
-
       console.log('Error in upload:', err);
-
       next(err);
     }
   }
 );
 
-
 // ======================
 // GET ALL PANELS
 // ======================
-
 app.get('/all/panel', async (req, res, next) => {
-
   try {
-
     const panels = await Panel.aggregate([
-
       { $sort: { panelNumber: 1, date: 1 } },
-
       {
         $group: {
           _id: "$panelNumber",
@@ -287,58 +228,58 @@ app.get('/all/panel', async (req, res, next) => {
           dates: { $push: "$date" }
         }
       },
-
       {
         $addFields: {
           panelNumber: "$_id"
         }
       },
-
       { $sort: { panelNumber: 1 } }
-
     ]);
 
     const panelWithInstruments = await Promise.all(
-
       panels.map(async (panel) => {
-
         const instruments = await Instrument.find(
           { panelNumber: panel.panelNumber },
-
           {
             _id: 0,
             instrumentId: 1,
             instrumentName: 1,
             description: 1,
             xCoordinate: 1,
-            yCoordinate: 1
+            yCoordinate: 1,
+            unit: 1,
+            minValue: 1,
+            maxValue: 1
           }
         );
 
+        const instrumentsWithDefaults = instruments.map((inst) => {
+          const defaults = instrumentDefaults[inst.instrumentName] || {};
+          return {
+            ...inst.toObject(),
+            minValue: inst.minValue ?? defaults.minValue,
+            maxValue: inst.maxValue ?? defaults.maxValue
+          };
+        });
+
         return {
           ...panel,
-          instruments
+          instruments: instrumentsWithDefaults
         };
       })
     );
 
     res.json(panelWithInstruments);
-
   } catch (e) {
-
     next(e);
   }
 });
 
-
 // ======================
 // GET PANEL SNAPSHOTS
 // ======================
-
 app.get('/panel/data/:panelNumber', async (req, res, next) => {
-
   try {
-
     const panelNumber = parseInt(req.params.panelNumber);
 
     if (!panelNumber) {
@@ -358,34 +299,25 @@ app.get('/panel/data/:panelNumber', async (req, res, next) => {
     }
 
     console.log("panel snapshots.......", panelSnapshots);
-
     res.json(panelSnapshots);
-
   } catch (err) {
-
     next(err);
   }
 });
 
-
 // ======================
 // 404 HANDLER
 // ======================
-
 app.use('*', (req, res) => {
-
   res.status(404).json({
     message: 'route not found'
   });
 });
 
-
 // ======================
 // GLOBAL ERROR HANDLER
 // ======================
-
 app.use((err, req, res, next) => {
-
   const {
     message = "something went wrong/default message to debug u have to dig deeper",
     statusCode = 500
@@ -400,12 +332,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-
 // ======================
 // START SERVER
 // ======================
-
 app.listen(process.env.PORT || 6000, () => {
-
   console.log('Server started successfully');
 });

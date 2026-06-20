@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import './search.css'; // Import the CSS file
+import { useState } from 'react';
+import './search.css';
 import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
-    const [searchTerm,setSearchTerm]=useState('')
-  const navigate=useNavigate()
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value)
-  };
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(`/${searchTerm}/graph`)
-    
+    if (searchTerm.trim()) navigate(`/${searchTerm}/graph`);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSearch();
   };
 
   return (
-    <>
-    <div className="search-container">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleInputChange}
-        className="search-input"
-      />
-      <button onClick={handleSearch} className="search-button">
+    <div className="search-bar">
+      <div className="search-input-wrap">
+        <span className="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="Search by instrument ID…"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="search-input"
+        />
+      </div>
+      <button onClick={handleSearch} className="search-btn">
         Search
       </button>
-   
-    <button className="search-button" onClick={()=>navigate('/')} style={{marginLeft:'4px'}}>
+      <button onClick={() => navigate('/')} className="search-btn search-btn-secondary">
         Home
       </button>
-      </div>
-      </>
+    </div>
   );
 };
 
 export default Search;
-

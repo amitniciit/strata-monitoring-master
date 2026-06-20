@@ -46,6 +46,10 @@ const instrumentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+    zCoordinate: {
+    type: Number,
+    default: 0,
+  },
   unit:{
     type:String,
     required:true

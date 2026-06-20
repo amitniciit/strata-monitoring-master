@@ -11,13 +11,17 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.13.4",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.17.10",
     "axios": "^1.7.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-toastify": "^11.0.5",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "three": "^0.184.0",
+    "three-stdlib": "^2.36.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
